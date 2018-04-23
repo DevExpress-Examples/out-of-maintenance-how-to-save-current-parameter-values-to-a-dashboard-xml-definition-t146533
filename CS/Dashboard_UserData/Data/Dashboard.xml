@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="en-US">
+  <Title Text="Dashboard" />
+  <DataConnections>
+    <DataConnection Name="nwindConnection" ProviderKey="Access97">
+      <Parameters>
+        <Parameter Name="database" Value="..\..\Data\nwind.mdb" />
+        <Parameter Name="read only" Value="1" />
+        <Parameter Name="generateConnectionHelper" Value="false" />
+      </Parameters>
+    </DataConnection>
+  </DataConnections>
+  <DataSources>
+    <DataSource ComponentName="dataSource1" Name="Data Source 1" DataProcessingMode="Client">
+      <DataProvider DataConnection="nwindConnection" SupportSql="true">
+        <Selection>
+          <Table Name="SalesPerson">
+            <Columns>
+              <Column Name="OrderID" />
+              <Column Name="Country" />
+              <Column Name="FirstName" />
+              <Column Name="LastName" />
+              <Column Name="ProductName" />
+              <Column Name="CategoryName" />
+              <Column Name="OrderDate" />
+              <Column Name="UnitPrice" />
+              <Column Name="Quantity" />
+              <Column Name="Discount" />
+              <Column Name="Extended Price" />
+              <Column Name="Sales Person" />
+            </Columns>
+          </Table>
+          <Filters>
+            <Filter TableName="SalesPerson" FilterString="[SalesPerson.CategoryName] = ?Category1 And [SalesPerson.OrderDate] &gt;= ?DateFrom1" />
+          </Filters>
+        </Selection>
+      </DataProvider>
+    </DataSource>
+    <DataSource ComponentName="dataSource2" Name="Data Source 2" DataProcessingMode="Client">
+      <DataProvider DataConnection="nwindConnection" SupportSql="true">
+        <Selection>
+          <Table Name="Categories">
+            <Columns>
+              <Column Name="CategoryName" />
+            </Columns>
+          </Table>
+          <Filters>
+            <Filter TableName="Categories" FilterString="" />
+          </Filters>
+        </Selection>
+      </DataProvider>
+    </DataSource>
+  </DataSources>
+  <Parameters>
+    <Parameter Name="Category1" Value="Beverages" Description="Select category:">
+      <DynamicListLookUpSettings DataSourceName="dataSource2" ValueMember="CategoryName" DisplayMember="CategoryName" />
+    </Parameter>
+    <Parameter Name="DateFrom1" Type="System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Value="1995-01-01T00:00:00" Description="Select start date:" />
+  </Parameters>
+  <Items>
+    <Pivot ComponentName="pivotDashboardItem1" Name="Pivot 1" ShowCaption="false" DataSource="dataSource1">
+      <DataItems>
+        <Dimension DataMember="CategoryName" UniqueName="DataItem0" />
+        <Dimension DataMember="ProductName" UniqueName="DataItem1" />
+        <Measure DataMember="Extended Price" UniqueName="DataItem2" />
+        <Dimension DataMember="OrderDate" UniqueName="DataItem3" />
+      </DataItems>
+      <Columns>
+        <Column UniqueName="DataItem3" />
+      </Columns>
+      <Rows>
+        <Row UniqueName="DataItem0" />
+        <Row UniqueName="DataItem1" />
+      </Rows>
+      <Values>
+        <Value UniqueName="DataItem2" />
+      </Values>
+      <AutoExpandRowGroups>true</AutoExpandRowGroups>
+    </Pivot>
+    <Chart ComponentName="chartDashboardItem1" Name="Chart 1" ShowCaption="false" DataSource="dataSource1">
+      <DataItems>
+        <Dimension DataMember="Sales Person" TopNCount="3" TopNMeasure="DataItem2" UniqueName="DataItem1" />
+        <Measure DataMember="Extended Price" UniqueName="DataItem2" />
+      </DataItems>
+      <Arguments>
+        <Argument UniqueName="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple>
+              <Value UniqueName="DataItem2" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+    </Chart>
+    <Card ComponentName="cardDashboardItem1" Name="Cards 1" DataSource="dataSource1">
+      <DataItems>
+        <Dimension DataMember="Country" UniqueName="DataItem0" />
+        <Measure DataMember="Extended Price" UniqueName="DataItem1" />
+      </DataItems>
+      <SeriesDimensions>
+        <SeriesDimension UniqueName="DataItem0" />
+      </SeriesDimensions>
+      <Card>
+        <ActualValue UniqueName="DataItem1" />
+      </Card>
+    </Card>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup>
+      <LayoutGroup Weight="56.057494866529773" Orientation="Vertical">
+        <LayoutItem Weight="34.623217922606926" DashboardItem="cardDashboardItem1" />
+        <LayoutItem Weight="65.376782077393074" DashboardItem="pivotDashboardItem1" />
+      </LayoutGroup>
+      <LayoutItem Weight="43.942505133470227" DashboardItem="chartDashboardItem1" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>
