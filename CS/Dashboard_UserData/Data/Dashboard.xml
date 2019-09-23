@@ -12,7 +12,7 @@
   </DataConnections>
   <DataSources>
     <DataSource ComponentName="dataSource1" Name="Data Source 1" DataProcessingMode="Client">
-      <DataProvider DataConnection="nwindConnection" SupportSql="true">
+      <DataProvider DataConnection="nwindConnection">
         <Selection>
           <Table Name="SalesPerson">
             <Columns>
@@ -37,7 +37,7 @@
       </DataProvider>
     </DataSource>
     <DataSource ComponentName="dataSource2" Name="Data Source 2" DataProcessingMode="Client">
-      <DataProvider DataConnection="nwindConnection" SupportSql="true">
+      <DataProvider DataConnection="nwindConnection">
         <Selection>
           <Table Name="Categories">
             <Columns>
@@ -60,36 +60,36 @@
   <Items>
     <Pivot ComponentName="pivotDashboardItem1" Name="Pivot 1" ShowCaption="false" DataSource="dataSource1">
       <DataItems>
-        <Dimension DataMember="CategoryName" UniqueName="DataItem0" />
-        <Dimension DataMember="ProductName" UniqueName="DataItem1" />
-        <Measure DataMember="Extended Price" UniqueName="DataItem2" />
-        <Dimension DataMember="OrderDate" UniqueName="DataItem3" />
+        <Dimension DataMember="CategoryName" DefaultId="DataItem0" />
+        <Dimension DataMember="ProductName" DefaultId="DataItem1" />
+        <Measure DataMember="Extended Price" DefaultId="DataItem2" />
+        <Dimension DataMember="OrderDate" DefaultId="DataItem3" />
       </DataItems>
       <Columns>
-        <Column UniqueName="DataItem3" />
+        <Column DefaultId="DataItem3" />
       </Columns>
       <Rows>
-        <Row UniqueName="DataItem0" />
-        <Row UniqueName="DataItem1" />
+        <Row DefaultId="DataItem0" />
+        <Row DefaultId="DataItem1" />
       </Rows>
       <Values>
-        <Value UniqueName="DataItem2" />
+        <Value DefaultId="DataItem2" />
       </Values>
       <AutoExpandRowGroups>true</AutoExpandRowGroups>
     </Pivot>
     <Chart ComponentName="chartDashboardItem1" Name="Chart 1" ShowCaption="false" DataSource="dataSource1">
       <DataItems>
-        <Dimension DataMember="Sales Person" TopNCount="3" TopNMeasure="DataItem2" UniqueName="DataItem1" />
-        <Measure DataMember="Extended Price" UniqueName="DataItem2" />
+        <Dimension DataMember="Sales Person" TopNCount="3" TopNMeasure="DataItem2" DefaultId="DataItem1" />
+        <Measure DataMember="Extended Price" DefaultId="DataItem2" />
       </DataItems>
       <Arguments>
-        <Argument UniqueName="DataItem1" />
+        <Argument DefaultId="DataItem1" />
       </Arguments>
       <Panes>
         <Pane Name="Pane 1">
           <Series>
             <Simple>
-              <Value UniqueName="DataItem2" />
+              <Value DefaultId="DataItem2" />
             </Simple>
           </Series>
         </Pane>
@@ -97,24 +97,41 @@
     </Chart>
     <Card ComponentName="cardDashboardItem1" Name="Cards 1" DataSource="dataSource1">
       <DataItems>
-        <Dimension DataMember="Country" UniqueName="DataItem0" />
-        <Measure DataMember="Extended Price" UniqueName="DataItem1" />
+        <Dimension DataMember="Country" DefaultId="DataItem0" />
+        <Measure DataMember="Extended Price" DefaultId="DataItem1" />
       </DataItems>
       <SeriesDimensions>
-        <SeriesDimension UniqueName="DataItem0" />
+        <SeriesDimension DefaultId="DataItem0" />
       </SeriesDimensions>
       <Card>
-        <ActualValue UniqueName="DataItem1" />
+        <ActualValue DefaultId="DataItem1" />
+        <AbsoluteVariationNumericFormat />
+        <PercentVariationNumericFormat />
+        <PercentOfTargetNumericFormat />
       </Card>
     </Card>
   </Items>
   <LayoutTree>
     <LayoutGroup>
-      <LayoutGroup Weight="56.057494866529773" Orientation="Vertical">
-        <LayoutItem Weight="34.623217922606926" DashboardItem="cardDashboardItem1" />
-        <LayoutItem Weight="65.376782077393074" DashboardItem="pivotDashboardItem1" />
+      <LayoutGroup Orientation="Vertical" Weight="56.057494866529773">
+        <LayoutItem DashboardItem="cardDashboardItem1" Weight="34.623217922606926" />
+        <LayoutItem DashboardItem="pivotDashboardItem1" Weight="65.376782077393074" />
       </LayoutGroup>
-      <LayoutItem Weight="43.942505133470227" DashboardItem="chartDashboardItem1" />
+      <LayoutItem DashboardItem="chartDashboardItem1" Weight="43.942505133470227" />
     </LayoutGroup>
   </LayoutTree>
+  <UserData>
+    <ParametersInfo>
+      <ParameterInfo>
+        <Name>Category1</Name>
+        <Value>Beverages</Value>
+        <Type>String</Type>
+      </ParameterInfo>
+      <ParameterInfo>
+        <Name>DateFrom1</Name>
+        <Value>1995-01-01T00:00:00</Value>
+        <Type>DateTime</Type>
+      </ParameterInfo>
+    </ParametersInfo>
+  </UserData>
 </Dashboard>
